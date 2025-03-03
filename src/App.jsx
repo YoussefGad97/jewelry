@@ -4,7 +4,9 @@ import Navbar from './components/Navbar';
 import HomePage from '../src/pages/home';
 import ShopPage from '../src/pages/shop';
 import CartPage from '../src/pages/cart';
-import Favorites from './pages/Favorites';
+import Favorites from './pages/favorites';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 import { CartProvider } from './context/CartContext';
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
             <Route path="/shop" element={<ShopPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/favorites" element={<Favorites />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </Router>
       </CustomThemeProvider>
@@ -25,4 +29,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

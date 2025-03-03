@@ -1,51 +1,38 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { 
-  Container, 
-  Box, 
-  Typography, 
-  TextField, 
-  Button, 
-  Grid,
-  FormControlLabel,
-  Checkbox
-} from '@mui/material';
-import { motion } from 'framer-motion';
+import { Container, Box, Typography, TextField, Button, Snackbar, Alert } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
-const MotionButton = motion(Button);
-
-export default function Signup() {
+const Signup = () => {
   const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
     email: '',
-    password: '',
-    confirmPassword: '',
-    acceptTerms: false
   });
   const [errors, setErrors] = useState({});
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const validate = () => {
     const newErrors = {};
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    
+    const phoneRegex = /^\+?[0-9]{10,15}$/;
+
+    if (!formData.name) {
+      newErrors.name = 'Name is required';
+    }
+
+    if (!formData.phone) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!phoneRegex.test(formData.phone)) {
+      newErrors.phone = 'Invalid phone number';
+    }
+
     if (!formData.email) {
       newErrors.email = 'Email is required';
     } else if (!emailRegex.test(formData.email)) {
       newErrors.email = 'Invalid email format';
-    }
-    
-    if (!formData.password) {
-      newErrors.password = 'Password is required';
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters';
-    }
-    
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
-    }
-    
-    if (!formData.acceptTerms) {
-      newErrors.acceptTerms = 'You must accept the terms';
     }
 
     setErrors(newErrors);
@@ -55,121 +42,105 @@ export default function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      // Handle signup logic
-      navigate('/');
+      // Handle signup logic here
+      setOpenSnackbar(true);
+      setTimeout(() => navigate('/login'), 2000);
     }
   };
 
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
+
   return (
-    <Container maxWidth="sm" sx={{ py: 8 }}>
-      <Box 
-        component="form" 
-        onSubmit={handleSubmit}
-        sx={{
-          p: 6,
-          borderRadius: 4,
-          boxShadow: 3,
-          backgroundColor: 'background.paper'
-        }}
-      >
-        <Typography variant="h3" sx={{ 
-          mb: 4, 
-          textAlign: 'center',
-          fontWeight: 700,
-          color: 'primary.main'
-        }}>
-          Create Account
-        </Typography>
-
-        <TextField
-          fullWidth
-          label="Email"
-          variant="outlined"
-          margin="normal"
-          error={!!errors.email}
-          helperText={errors.email}
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          sx={{ mb: 3 }}
-        />
-
-        <TextField
-          fullWidth
-          label="Password"
-          type="password"
-          variant="outlined"
-          margin="normal"
-          error={!!errors.password}
-          helperText={errors.password}
-          value={formData.password}
-          onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-          sx={{ mb: 3 }}
-        />
-
-        <TextField
-          fullWidth
-          label="Confirm Password"
-          type="password"
-          variant="outlined"
-          margin="normal"
-          error={!!errors.confirmPassword}
-          helperText={errors.confirmPassword}
-          value={formData.confirmPassword}
-          onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-          sx={{ mb: 3 }}
-        />
-
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={formData.acceptTerms}
-              onChange={(e) => setFormData({ ...formData, acceptTerms: e.target.checked })}
-              color="primary"
-            />
-          }
-          label={
-            <Typography variant="body2">
-              I agree to the Terms of Service and Privacy Policy
-            </Typography>
-          }
-          sx={{ mb: errors.acceptTerms ? 1 : 3, width: '100%' }}
-        />
-        {errors.acceptTerms && (
-          <Typography color="error" variant="body2" sx={{ mb: 2 }}>
-            {errors.acceptTerms}
-          </Typography>
-        )}
-
-        <MotionButton
-          fullWidth
-          variant="contained"
-          type="submit"
-          size="large"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        backgroundColor: theme.palette.background.default,
+      }}
+    >
+      <Container maxWidth="sm">
+        <Box
           sx={{
-            mt: 2,
-            py: 1.5,
+            mt: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            p: 4,
             borderRadius: 2,
-            fontSize: '1.1rem',
-            textTransform: 'none'
+            boxShadow: 3,
+            backgroundColor: theme.palette.background.paper,
           }}
         >
-          Sign Up
-        </MotionButton>
-
-        <Typography variant="body1" sx={{ mt: 3, textAlign: 'center' }}>
-          Already have an account?{' '}
-          <Link to="/login" style={{ 
-            color: '#40E0D0',
-            textDecoration: 'none',
-            fontWeight: 500,
-            '&:hover': { textDecoration: 'underline' }
-          }}>
-            Log In
-          </Link>
-        </Typography>
-      </Box>
-    </Container>
+          <Typography component="h1" variant="h4" sx={{ mb: 3, color: theme.palette.primary.main }}>
+            Sign Up
+          </Typography>
+          <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+            <TextField
+              fullWidth
+              label="Name"
+              variant="outlined"
+              margin="normal"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              error={!!errors.name}
+              helperText={errors.name}
+              required
+            />
+            <TextField
+              fullWidth
+              label="Phone Number"
+              variant="outlined"
+              margin="normal"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              error={!!errors.phone}
+              helperText={errors.phone}
+              required
+            />
+            <TextField
+              fullWidth
+              label="Email"
+              variant="outlined"
+              margin="normal"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              error={!!errors.email}
+              helperText={errors.email}
+              required
+            />
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              sx={{ mt: 3, mb: 2, py: 1.5 }}
+            >
+              Sign Up
+            </Button>
+            <Typography variant="body2" sx={{ textAlign: 'center' }}>
+              Already have an account?{' '}
+              <Link href="/login" color="primary">
+                Login
+              </Link>
+            </Typography>
+          </Box>
+        </Box>
+      </Container>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+          Signup successful! Redirecting to login...
+        </Alert>
+      </Snackbar>
+    </Box>
   );
-} 
+};
+
+export default Signup;
