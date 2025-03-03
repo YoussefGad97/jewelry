@@ -11,6 +11,7 @@ const products = [
     image: DiamondRing,
     sizes: ["6", "7", "8", "9"],
     category: "Rings",
+    stock: 5,
   },
   {
     id: 2,
@@ -19,6 +20,7 @@ const products = [
     image: GoldPearlNecklace,
     sizes: ['16"', '18"', '20"'],
     category: "Necklaces",
+    stock: 5,
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ const products = [
     image: SilverInfinityBracelet,
     sizes: ["S", "M", "L"],
     category: "Bracelets",
+    stock: 5,
   },
   {
     id: 4,
@@ -35,6 +38,7 @@ const products = [
     image: PlatinumWeddingBand,
     sizes: ["5", "6", "7", "8"],
     category: "Rings",
+    stock: 5,
   },
   {
     id: 5,
@@ -43,6 +47,7 @@ const products = [
     image: DiamondRing,
     sizes: ["6", "7", "8", "9"],
     category: "Rings",
+    stock: 5,
   },
   {
     id: 6,
@@ -51,6 +56,7 @@ const products = [
     image: GoldPearlNecklace,
     sizes: ['16"', '18"', '20"'],
     category: "Necklaces",
+    stock: 5,
   },
   {
     id: 7,
@@ -59,6 +65,7 @@ const products = [
     image: SilverInfinityBracelet,
     sizes: ["6", "7"],
     category: "Bracelets",
+    stock: 5,
   },
   {
     id: 8,
@@ -67,6 +74,7 @@ const products = [
     image: PlatinumWeddingBand,
     sizes: ["6", "7", "8", "9"],
     category: "Rings",
+    stock: 5,
   },
   {
     id: 9,
@@ -75,6 +83,7 @@ const products = [
     image: DiamondRing,
     sizes: ["6", "7", "8", "9"],
     category: "Rings",
+    stock: 5,
   },
   {
     id: 10,
@@ -83,6 +92,7 @@ const products = [
     image: GoldPearlNecklace,
     sizes: ['16"', '18"', '20"'],
     category: "Necklaces",
+    stock: 5,
   },
   {
     id: 11,
@@ -91,6 +101,7 @@ const products = [
     image: SilverInfinityBracelet,
     sizes: ["6", "7"],
     category: "Bracelets",
+    stock: 5,
   },
   {
     id: 12,
@@ -99,6 +110,7 @@ const products = [
     image: PlatinumWeddingBand,
     sizes: ["6", "7", "8", "9"],
     category: "Rings",
+    stock: 5,
   },
 
   // Add more products as needed...

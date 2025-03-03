@@ -5,6 +5,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
 
 const navLinks = [
   { path: '/', name: 'Home' },
@@ -96,92 +98,150 @@ export default function Navbar() {
   );
 
   return (
-    <AppBar 
-      position="sticky" 
-      sx={{ 
-        backgroundColor: 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(8px)',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+    <AppBar sx={{ 
+      backgroundColor: 'rgba(255,255,255,0.95)',
+      color: 'text.primary',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+      '& .MuiButton-root': {
         color: 'text.primary',
-        '& .MuiButton-root': {
-          color: 'text.primary',
-          '&:hover': {
-            backgroundColor: 'rgba(64, 224, 208, 0.1)'
-          }
+        '&:hover': {
+          backgroundColor: 'rgba(64, 224, 208, 0.1)'
         }
-      }}
-    >
+      }
+    }}>
       <Toolbar sx={{ 
         justifyContent: 'space-between',
-        position: 'relative' 
+        position: 'relative'
       }}>
-        <Typography 
-          variant="h6" 
-          component={RouterLink} 
+        {/* Logo */}
+        <Typography
+          component={Link}
           to="/"
+          variant="h6"
           sx={{ 
-            textDecoration: 'none', 
-            color: 'primary.main',
+            mr: 2, 
             fontWeight: 700,
-            position: 'absolute',
-            left: 16,
-            '&:hover': {
-              color: 'primary.dark'
-            }
+            color: 'primary.main',
+            textDecoration: 'none'
           }}
         >
           JewelryStore
         </Typography>
 
-        {isMobile ? (
-          <>
-            <IconButton
-              color="inherit"
-              edge="end"
-              onClick={handleDrawerToggle}
-              sx={{ display: { md: 'none' }, ml: 'auto' }}
-            >
-              <MenuIcon />
-            </IconButton>
-            {mobileNav}
-          </>
-        ) : (
-          <Box sx={{ 
-            display: 'flex', 
-            justifyContent: 'center',
-            width: '100%' 
-          }}>
-            <AnimatePresence mode="wait">
-              <div className="flex items-center gap-6">
-                {navLinks.map((link) => (
-                  <MotionButton
-                    key={link.path}
-                    component={Link}
-                    to={link.path}
-                    variant="text"
-                    sx={{
-                      borderRadius: '8px',
-                      px: 3,
-                      color: location.pathname === link.path ? 'primary.main' : 'text.secondary',
-                      '&:hover': {
-                        backgroundColor: 'rgba(0, 0, 0, 0.03)'
-                      }
-                    }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    {link.name}
-                    {location.pathname === link.path && (
-                      <motion.div
-                        className="absolute bottom-0 left-0 right-0 h-[2px] bg-primary-main"
-                      />
-                    )}
-                  </MotionButton>
-                ))}
-              </div>
-            </AnimatePresence>
+        {/* Centered Navigation Links */}
+        <Box sx={{ 
+          display: { xs: 'none', md: 'flex' },
+          gap: 2,
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)'
+        }}>
+          <Button component={Link} to="/">Home</Button>
+          <Button component={Link} to="/shop">Shop</Button>
+          <Button>Collections</Button>
+          <Button>About</Button>
+        </Box>
+
+        {/* Right-aligned Auth Buttons */}
+        <Box sx={{ 
+          display: { xs: 'none', md: 'flex' }, 
+          gap: 2,
+          alignItems: 'center'
+        }}>
+          <Button component={Link} to="/login">Login</Button>
+          <Button 
+            variant="contained" 
+            component={Link} 
+            to="/signup"
+            sx={{ 
+              backgroundColor: 'primary.main',
+              color: 'white',
+              '&:hover': { backgroundColor: 'primary.dark' }
+            }}
+          >
+            Sign Up
+          </Button>
+        </Box>
+
+        {/* Mobile Menu Button */}
+        <IconButton
+          size="large"
+          edge="end"
+          color="inherit"
+          aria-label="menu"
+          onClick={handleDrawerToggle}
+          sx={{ 
+            display: { md: 'none' },
+            color: 'text.primary'
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
+
+        {/* Mobile Drawer */}
+        <Drawer
+          anchor="right"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          PaperProps={{
+            sx: {
+              width: '75%',
+              maxWidth: 300,
+              backgroundColor: 'rgba(255,255,255,0.98)',
+              backdropFilter: 'blur(12px)',
+              '& .MuiButton-root': {
+                justifyContent: 'flex-start',
+                px: 3,
+                py: 2,
+                borderRadius: 0,
+                '&:hover': {
+                  backgroundColor: 'rgba(64, 224, 208, 0.1)'
+                }
+              }
+            }
+          }}
+        >
+          <Box sx={{ p: 2 }}>
+            <Box sx={{ 
+              display: 'flex', 
+              justifyContent: 'flex-end',
+              mb: 2
+            }}>
+              <IconButton onClick={handleDrawerToggle}>
+                <CloseIcon sx={{ color: 'text.primary' }} />
+              </IconButton>
+            </Box>
+
+            <Stack spacing={1}>
+              <Button component={Link} to="/" fullWidth>Home</Button>
+              <Button component={Link} to="/shop" fullWidth>Shop</Button>
+              <Button fullWidth>Collections</Button>
+              <Button fullWidth>About</Button>
+              <Divider sx={{ my: 2 }} />
+              <Button 
+                component={Link} 
+                to="/login" 
+                fullWidth
+                sx={{ color: 'primary.main' }}
+              >
+                Login
+              </Button>
+              <Button 
+                variant="contained" 
+                component={Link} 
+                to="/signup"
+                fullWidth
+                sx={{ 
+                  backgroundColor: 'primary.main',
+                  color: 'white',
+                  '&:hover': { backgroundColor: 'primary.dark' }
+                }}
+              >
+                Sign Up
+              </Button>
+            </Stack>
           </Box>
-        )}
+        </Drawer>
       </Toolbar>
     </AppBar>
   );

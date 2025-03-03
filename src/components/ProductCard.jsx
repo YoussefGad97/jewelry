@@ -19,15 +19,16 @@ export default function ProductCard({ product }) {
   const [selectedSize, setSelectedSize] = useState('');
 
   return (
-    <Card sx={{ 
-      position: 'relative',
-      borderRadius: '16px',
-      overflow: 'visible',
-      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-      boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+    <Card sx={{
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      borderRadius: '12px',
+      overflow: 'hidden',
+      transition: 'transform 0.2s, box-shadow 0.2s',
       '&:hover': {
         transform: 'translateY(-4px)',
-        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)'
+        boxShadow: 3
       }
     }}>
       {/* Favorite Button */}
@@ -67,10 +68,8 @@ export default function ProductCard({ product }) {
         image={product.image}
         alt={product.name}
         sx={{ 
-          height: 360,
+          height: { xs: 200, sm: 240, md: 280 },
           objectFit: 'cover',
-          borderTopLeftRadius: 16,
-          borderTopRightRadius: 16,
           borderBottom: '1px solid',
           borderColor: 'divider'
         }}
@@ -78,13 +77,13 @@ export default function ProductCard({ product }) {
 
       {/* Product Details */}
       <Box sx={{ p: 3, pt: 2.5 }}>
-        <Typography variant="h6" sx={{ 
+        <Typography variant="h6" sx={{
+          fontSize: { xs: '0.875rem', sm: '1rem' },
           fontWeight: 600,
-          mb: 1.5,
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          color: 'text.primary'
+          lineHeight: 1.2,
+          mb: 1,
+          px: 2,
+          pt: 1.5
         }}>
           {product.name}
         </Typography>
@@ -124,10 +123,12 @@ export default function ProductCard({ product }) {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <Typography variant="h6" sx={{ 
+          <Typography variant="h6" sx={{
+            fontSize: { xs: '1rem', sm: '1.1rem' },
             fontWeight: 700,
             color: 'primary.main',
-            letterSpacing: '-0.5px'
+            px: 2,
+            pb: 1.5
           }}>
             ${product.price.toLocaleString()}
           </Typography>
