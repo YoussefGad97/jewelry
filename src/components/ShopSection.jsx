@@ -4,6 +4,9 @@ import GoldPearlNecklace from '../assets/products/GoldPearlNecklace.jpg';
 import DiamondRing from '../assets/products/DiamondRing.jpg';
 import SilverInfinityBracelet from '../assets/products/SilverInfiniteBracelete.jpg';
 import PlatinumWeddingBand from '../assets/products/PlatinumWeddingBand.jpg';
+import { Link } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const featuredProducts = [
   // Use a subset of your main products array
@@ -16,7 +19,7 @@ const featuredProducts = [
 
 export default function ShopSection() {
   return (
-    <Box sx={{ mb: 8 }}>
+    <Box sx={{ mb: 8, px: { xs: 2, sm: 3 } }}>
       <Typography variant="h4" sx={{ 
         mb: 6, 
         textAlign: 'center',
@@ -32,6 +35,39 @@ export default function ShopSection() {
           </Grid>
         ))}
       </Grid>
+
+      {/* Shop Now Button */}
+      <Box sx={{ 
+        textAlign: 'center', 
+        mt: 8,
+        '&:hover': { 
+          transform: 'scale(1.02)',
+          transition: 'transform 0.3s ease'
+        }
+      }}>
+        <Button
+          component={Link}
+          to="/shop"
+          variant="contained"
+          endIcon={<ArrowForwardIcon />}
+          sx={{
+            backgroundColor: 'primary.main',
+            color: 'white',
+            fontSize: '1.1rem',
+            px: 6,
+            py: 1.5,
+            borderRadius: '8px',
+            '&:hover': {
+              backgroundColor: 'primary.dark',
+              transform: 'translateY(-2px)'
+            },
+            transition: 'all 0.3s ease',
+            boxShadow: 3
+          }}
+        >
+          Shop All Products
+        </Button>
+      </Box>
     </Box>
   );
 } 

@@ -16,6 +16,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ProductCard from '../components/ProductCard';
 import Pagination from '../components/Pagination';
 import products from '../data/products';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ITEMS_PER_PAGE = 12;
 const categories = [...new Set(products.map(p => p.category))];
@@ -87,10 +88,7 @@ export default function Shop() {
         mb: { xs: 4, md: 0 },
         pt: { md: 2 }
       }}>
-        <Accordion defaultExpanded sx={{ 
-          mb: 2,
-          mt: { xs: 0, md: 0 }
-        }}>
+        <Accordion defaultExpanded sx={{ mb: 2 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography fontWeight={600}>Availability</Typography>
           </AccordionSummary>
@@ -115,6 +113,8 @@ export default function Shop() {
             />
           </AccordionDetails>
         </Accordion>
+
+        <Divider sx={{ my: 2 }} />
 
         <Accordion defaultExpanded sx={{ mb: 2 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -147,6 +147,8 @@ export default function Shop() {
             </Box>
           </AccordionDetails>
         </Accordion>
+
+        <Divider sx={{ my: 2 }} />
 
         <Accordion defaultExpanded>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -188,11 +190,26 @@ export default function Shop() {
           mx: 'auto',
           px: { xs: 1, sm: 2 }
         }}>
-          {paginatedProducts.map((product) => (
-            <Grid item key={product.id} xs={6} sm={4} md={4} lg={3}>
-              <ProductCard product={product} />
-            </Grid>
-          ))}
+          <AnimatePresence initial={false} mode='popLayout'>
+            {paginatedProducts.map((product) => (
+              <Grid 
+                item 
+                key={product.id} 
+                xs={6} 
+                sm={4} 
+                md={4} 
+                lg={3}
+                component={motion.div}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.5 }}
+                transition={{ duration: 0.3 }}
+                layout
+              >
+                <ProductCard product={product} />
+              </Grid>
+            ))}
+          </AnimatePresence>
         </Grid>
 
         <Pagination
