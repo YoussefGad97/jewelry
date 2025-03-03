@@ -17,6 +17,7 @@ import ProductCard from '../components/ProductCard';
 import Pagination from '../components/Pagination';
 import products from '../data/products';
 import { motion, AnimatePresence } from 'framer-motion';
+import ScrollToTop from '../components/ScrollToTop';
 
 const ITEMS_PER_PAGE = 12;
 const categories = [...new Set(products.map(p => p.category))];
@@ -74,7 +75,7 @@ export default function Shop() {
     <Box sx={{ 
       maxWidth: 1440, 
       mx: 'auto',
-      pt: { xs: 5, md: 8 },
+      pt: { xs: 4, md: 8 },
       pb: { xs: 2, md: 3 },
       px: { xs: 2, md: 3 },
       minHeight: '100vh',
@@ -86,9 +87,13 @@ export default function Shop() {
         width: { xs: '100%', md: 300 }, 
         mr: { md: 4 },
         mb: { xs: 4, md: 0 },
-        pt: { md: 2 }
+        pt: { md: 2 },
+        mt: { xs: -3, md: 0 }
       }}>
-        <Accordion defaultExpanded sx={{ mb: 2 }}>
+        <Accordion defaultExpanded sx={{ 
+          mb: 2,
+          mt: { xs: 0, md: 0 }
+        }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography fontWeight={600}>Availability</Typography>
           </AccordionSummary>
@@ -113,8 +118,6 @@ export default function Shop() {
             />
           </AccordionDetails>
         </Accordion>
-
-        <Divider sx={{ my: 2 }} />
 
         <Accordion defaultExpanded sx={{ mb: 2 }}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -148,8 +151,6 @@ export default function Shop() {
           </AccordionDetails>
         </Accordion>
 
-        <Divider sx={{ my: 2 }} />
-
         <Accordion defaultExpanded>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Typography fontWeight={600}>Product Type</Typography>
@@ -176,7 +177,7 @@ export default function Shop() {
       <Box sx={{ flexGrow: 1 }}>
         <Typography variant="h2" sx={{ 
           mb: 6,
-          pt: { xs: 3, md: 2 },
+          pt: { xs: 1, md: 2 },
           textAlign: 'center',
           fontWeight: 800,
           letterSpacing: '-1px',
@@ -188,15 +189,18 @@ export default function Shop() {
         <Grid container spacing={{ xs: 2, md: 3 }} sx={{ 
           maxWidth: 1440,
           mx: 'auto',
-          px: { xs: 1, sm: 2 }
+          px: { xs: 1, sm: 2 },
+          '& .MuiGrid-item': {
+            display: 'flex'
+          }
         }}>
           <AnimatePresence initial={false} mode='popLayout'>
             {paginatedProducts.map((product) => (
               <Grid 
                 item 
                 key={product.id} 
-                xs={6} 
-                sm={4} 
+                xs={12} 
+                sm={6} 
                 md={4} 
                 lg={3}
                 component={motion.div}
@@ -206,7 +210,15 @@ export default function Shop() {
                 transition={{ duration: 0.3 }}
                 layout
               >
-                <ProductCard product={product} />
+                <ProductCard 
+                  product={product} 
+                  sx={{ 
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between'
+                  }}
+                />
               </Grid>
             ))}
           </AnimatePresence>
@@ -219,6 +231,7 @@ export default function Shop() {
           sx={{ mt: 4, mb: 2 }}
         />
       </Box>
+      <ScrollToTop />
     </Box>
   );
 }

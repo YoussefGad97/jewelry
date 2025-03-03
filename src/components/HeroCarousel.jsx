@@ -112,7 +112,7 @@ export default function HeroCarousel() {
               height: 12,
               borderRadius: '50%',
               border: 'none',
-              backgroundColor: activeIndex === index ? 'primary.main' : 'rgba(255,255,255,0.5)',
+              backgroundColor: activeIndex === index ? 'primary.main' : 'rgba(239, 198, 141, 0.5)',
               cursor: 'pointer',
               transition: 'background-color 0.3s ease'
             }}
