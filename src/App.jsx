@@ -7,25 +7,30 @@ import CartPage from '../src/pages/cart';
 import Favorites from './pages/favorites';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Profile from './pages/Profile';
 import { CartProvider } from './context/CartContext';
+import { UserProvider } from './context/UserContext';
 
 function App() {
   return (
-    <CartProvider>
-      <CustomThemeProvider>
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/shop" element={<ShopPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-          </Routes>
-        </Router>
-      </CustomThemeProvider>
-    </CartProvider>
+    <UserProvider>
+      <CartProvider>
+        <CustomThemeProvider>
+          <Router>
+            <Navbar />
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/shop" element={<ShopPage />} />
+              <Route path="/cart" element={<CartPage />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/profile" element={<Profile />} />
+            </Routes>
+          </Router>
+        </CustomThemeProvider>
+      </CartProvider>
+    </UserProvider>
   );
 }
 

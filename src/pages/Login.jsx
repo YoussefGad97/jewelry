@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography, TextField, Button, Container, Link, InputAdornment, IconButton } from '@mui/material';
+import { Box, Typography, TextField, Button, Container, Link, InputAdornment, IconButton, Snackbar, Alert } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useUser } from '../context/UserContext';
+import BackImage from '../assets/images/Back1.jpg';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
+  const { login, setUser } = useUser();
 
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -32,12 +36,19 @@ const Login = () => {
       return;
     }
     setError('');
-    // Handle login logic here
-    navigate('/dashboard');
+    const userData = { initials: email.charAt(0).toUpperCase(), email, name: email.split('@')[0] };
+    login(userData);
+    setUser(userData);
+    setOpenSnackbar(true);
+    setTimeout(() => navigate('/'), 2000); // Redirect to home page after 2 seconds
   };
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
   };
 
   return (
@@ -48,6 +59,9 @@ const Login = () => {
         alignItems: 'center',
         minHeight: '100vh',
         backgroundColor: theme.palette.background.default,
+        backgroundImage: `url(${BackImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
       <Container maxWidth="sm">
@@ -109,7 +123,7 @@ const Login = () => {
               fullWidth
               type="submit"
               variant="contained"
-              sx={{ mt: 3, mb: 2, py: 1.5 }}
+              sx={{ mt: 3, mb: 2 }}
             >
               Login
             </Button>
@@ -122,6 +136,16 @@ const Login = () => {
           </Box>
         </Box>
       </Container>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+          Login successful! Redirecting to home page...
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

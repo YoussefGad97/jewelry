@@ -1,13 +1,22 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Container, Box, Typography, TextField, Button, Snackbar, Alert } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  Button,
+  Snackbar,
+  Alert,
+} from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import BackImage from "../assets/images/Back1.jpg";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
+    name: "",
+    phone: "",
+    email: "",
   });
   const [errors, setErrors] = useState({});
   const [openSnackbar, setOpenSnackbar] = useState(false);
@@ -20,19 +29,19 @@ const Signup = () => {
     const phoneRegex = /^\+?[0-9]{10,15}$/;
 
     if (!formData.name) {
-      newErrors.name = 'Name is required';
+      newErrors.name = "Name is required";
     }
 
     if (!formData.phone) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = "Phone number is required";
     } else if (!phoneRegex.test(formData.phone)) {
-      newErrors.phone = 'Invalid phone number';
+      newErrors.phone = "Invalid phone number";
     }
 
     if (!formData.email) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Invalid email format';
+      newErrors.email = "Invalid email format";
     }
 
     setErrors(newErrors);
@@ -44,7 +53,7 @@ const Signup = () => {
     if (validate()) {
       // Handle signup logic here
       setOpenSnackbar(true);
-      setTimeout(() => navigate('/login'), 2000);
+      setTimeout(() => navigate("/login"), 2000);
     }
   };
 
@@ -55,37 +64,46 @@ const Signup = () => {
   return (
     <Box
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
         backgroundColor: theme.palette.background.default,
+        backgroundImage: `url(${BackImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       <Container maxWidth="sm">
         <Box
           sx={{
             mt: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
             p: 4,
             borderRadius: 2,
             boxShadow: 3,
             backgroundColor: theme.palette.background.paper,
           }}
         >
-          <Typography component="h1" variant="h4" sx={{ mb: 3, color: theme.palette.primary.main }}>
+          <Typography
+            component="h1"
+            variant="h4"
+            sx={{ mb: 3, color: theme.palette.primary.main }}
+          >
             Sign Up
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ width: "100%" }}>
             <TextField
               fullWidth
               label="Name"
               variant="outlined"
               margin="normal"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               error={!!errors.name}
               helperText={errors.name}
               required
@@ -96,7 +114,9 @@ const Signup = () => {
               variant="outlined"
               margin="normal"
               value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, phone: e.target.value })
+              }
               error={!!errors.phone}
               helperText={errors.phone}
               required
@@ -107,7 +127,9 @@ const Signup = () => {
               variant="outlined"
               margin="normal"
               value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
               error={!!errors.email}
               helperText={errors.email}
               required
@@ -120,8 +142,8 @@ const Signup = () => {
             >
               Sign Up
             </Button>
-            <Typography variant="body2" sx={{ textAlign: 'center' }}>
-              Already have an account?{' '}
+            <Typography variant="body2" sx={{ textAlign: "center" }}>
+              Already have an account?{" "}
               <Link href="/login" color="primary">
                 Login
               </Link>
@@ -133,9 +155,13 @@ const Signup = () => {
         open={openSnackbar}
         autoHideDuration={2000}
         onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
       >
-        <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
           Signup successful! Redirecting to login...
         </Alert>
       </Snackbar>
