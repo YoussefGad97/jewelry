@@ -63,9 +63,20 @@ export default function CarouselCard() {
   };
 
   const textVariants = {
-    enter: { opacity: 0, x: -20 },
-    center: { opacity: 1, x: 0 },
-    exit: { opacity: 0, x: 20 }
+    enter: (direction) => ({
+      x: direction === 'next' ? '-20%' : '20%',
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.6, delay: 0.2 }
+    },
+    exit: (direction) => ({
+      x: direction === 'next' ? '20%' : '-20%',
+      opacity: 0,
+      transition: { duration: 0.6 }
+    }),
   };
 
   return (
@@ -82,11 +93,11 @@ export default function CarouselCard() {
           <AnimatePresence mode='wait'>
             <motion.div
               key={activeIndex}
+              custom={direction}
               variants={textVariants}
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.4, delay: 0.2 }}
             >
               <Typography variant="h3" gutterBottom sx={{ 
                 fontWeight: 700,
