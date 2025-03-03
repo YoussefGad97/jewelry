@@ -1,0 +1,74 @@
+:root {
+  --primary: #3D52A0;     /* Darkest - headers, important buttons */
+  --secondary: #7091E6;   /* Primary actions, highlights */
+  --tertiary: #8697C4;    /* Secondary elements, borders */
+  --accent: #ADBBDA;      /* Accents, backgrounds */
+  --light: #EDE8F5;       /* Light background, cards */
+}
+
+/* Header Styles */
+.header {
+  background-color: var(--primary);
+  padding: 1rem;
+  color: white;
+}
+
+.nav-link {
+  color: var(--light);
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--secondary);
+}
+
+/* Product Cards */
+.product-card {
+  background: var(--light);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1rem;
+}
+
+.add-to-cart {
+  background-color: var(--secondary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.favorite-btn {
+  color: var(--tertiary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.favorite-btn.active {
+  color: var(--primary);
+}
+
+/* Cart & Favorites Section */
+.cart-section {
+  background-color: var(--accent);
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.checkout-btn {
+  background-color: var(--primary);
+  color: white;
+  padding: 1rem 2rem;
+}
+
+/* Product Grid Layout */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  background-color: var(--light);
+} 
