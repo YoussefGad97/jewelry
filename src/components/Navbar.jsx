@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -42,6 +42,7 @@ export default function Navbar() {
   const { cartItems, favorites } = useCart();
   const { user, logout } = useUser();
   const theme = useTheme();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setAnchorEl(null);
@@ -294,7 +295,7 @@ export default function Navbar() {
                   transformOrigin={{ horizontal: "right", vertical: "top" }}
                   anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                 >
-                  <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
+                  <MenuItem onClick={() => { handleProfileMenuClose(); navigate('/profile'); }}>Profile</MenuItem>
                   <MenuItem onClick={logout} sx={{ color: "error.main" }}>
                     Logout
                   </MenuItem>
