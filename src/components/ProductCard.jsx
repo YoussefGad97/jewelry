@@ -41,9 +41,9 @@ export default function ProductCard({ product }) {
 
   return (
     <>
-      <MotionCard 
+      <MotionCard
         whileHover={{ y: -5 }}
-        sx={{ 
+        sx={{
           position: 'relative',
           borderRadius: '16px',
           boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
@@ -53,34 +53,48 @@ export default function ProductCard({ product }) {
           }
         }}
       >
+        {/* Favorite Button */}
+        <IconButton
+          onClick={() => toggleFavorite(product)}
+          sx={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+            zIndex: 1,
+            color: isFavorite ? 'red' : 'grey.500', // Change color based on favorite status
+          }}
+        >
+          {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </IconButton>
+
         <CardMedia
           component="img"
           image={product.image}
           alt={product.name}
-          sx={{ 
+          sx={{
             height: 280,
             objectFit: 'cover',
             borderTopLeftRadius: '16px',
             borderTopRightRadius: '16px'
           }}
         />
-        
+
         <CardContent sx={{ p: 2.5 }}>
           <Box sx={{ mb: 2 }}>
-            <Chip 
-              label={product.category} 
-              size="small" 
-              sx={{ 
+            <Chip
+              label={product.category}
+              size="small"
+              sx={{
                 mb: 1,
-                backgroundColor: 'primary.light', 
+                backgroundColor: 'primary.light',
                 color: 'primary.contrastText',
                 fontWeight: 600
-              }} 
+              }}
             />
-            <Typography 
-              variant="h6" 
-              fontWeight="700" 
-              sx={{ 
+            <Typography
+              variant="h6"
+              fontWeight="700"
+              sx={{
                 mb: 0.5,
                 lineHeight: 1.2,
                 color: 'text.primary'
@@ -88,7 +102,7 @@ export default function ProductCard({ product }) {
             >
               {product.name}
             </Typography>
-            
+
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
               <StarIcon fontSize="small" sx={{ color: 'warning.main' }} />
               <Typography variant="body2" sx={{ color: 'text.secondary' }}>
@@ -97,9 +111,9 @@ export default function ProductCard({ product }) {
             </Box>
           </Box>
 
-          <Typography 
-            variant="body2" 
-            sx={{ 
+          <Typography
+            variant="body2"
+            sx={{
               color: 'text.secondary',
               mb: 2,
               minHeight: '40px',
@@ -112,7 +126,7 @@ export default function ProductCard({ product }) {
             {product.description}
           </Typography>
 
-          <Box sx={{ 
+          <Box sx={{
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
@@ -157,8 +171,8 @@ export default function ProductCard({ product }) {
         </CardContent>
       </MotionCard>
 
-      <Dialog 
-        open={open} 
+      <Dialog
+        open={open}
         onClose={() => setOpen(false)}
         PaperProps={{
           sx: {
@@ -175,7 +189,7 @@ export default function ProductCard({ product }) {
             <CloseIcon />
           </IconButton>
         </DialogTitle>
-        
+
         <DialogContent>
           <FormControl fullWidth sx={{ mb: 3 }}>
             <InputLabel>Select Size/Length</InputLabel>
@@ -190,9 +204,9 @@ export default function ProductCard({ product }) {
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
                     <span>{size.label}</span>
                     {!isNaN(size.value) && size.value !== 'OS' && (
-                      <Chip 
-                        label={`US ${size.value}`} 
-                        size="small" 
+                      <Chip
+                        label={`US ${size.value}`}
+                        size="small"
                         sx={{ ml: 1, bgcolor: 'primary.light' }}
                       />
                     )}
@@ -204,16 +218,16 @@ export default function ProductCard({ product }) {
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
             <Typography variant="subtitle1">Quantity:</Typography>
-            <Button 
-              variant="outlined" 
+            <Button
+              variant="outlined"
               onClick={() => setQuantity(Math.max(1, quantity - 1))}
               sx={{ minWidth: '40px' }}
             >
               -
             </Button>
             <Typography variant="h6">{quantity}</Typography>
-            <Button 
-              variant="outlined" 
+            <Button
+              variant="outlined"
               onClick={() => setQuantity(quantity + 1)}
               sx={{ minWidth: '40px' }}
             >
@@ -254,4 +268,4 @@ export default function ProductCard({ product }) {
       </Dialog>
     </>
   );
-} 
+}

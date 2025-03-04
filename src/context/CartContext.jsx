@@ -1,17 +1,45 @@
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
 
-export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
-  const [favorites, setFavorites] = useState([]);
+export function useCart() {
+  return useContext(CartContext);
+}
+
+export function CartProvider({ children }) {
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const storedCart = localStorage.getItem('cart');
+      return storedCart ? JSON.parse(storedCart) : [];
+    } catch {
+      return [];
+    }
+  });
+
+    const [favorites, setFavorites] = useState(() => {
+    try {
+      const storedFavorites = localStorage.getItem('favorites');
+      return storedFavorites ? JSON.parse(storedFavorites) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
 
   const addToCart = (item) => {
     setCartItems(prevItems => {
-      const existingItem = prevItems.find(prevItem => 
+      const existingItem = prevItems.find(prevItem =>
         prevItem.id === item.id && prevItem.size === item.size
       );
-      
+
       if (existingItem) {
         return prevItems.map(prevItem =>
           prevItem.id === item.id && prevItem.size === item.size
@@ -24,8 +52,8 @@ export const CartProvider = ({ children }) => {
   };
 
   const toggleFavorite = (product) => {
-    setFavorites(prev => 
-      prev.some(p => p.id === product.id) 
+    setFavorites(prev =>
+      prev.some(p => p.id === product.id)
         ? prev.filter(p => p.id !== product.id)
         : [...prev, product]
     );
@@ -36,25 +64,23 @@ export const CartProvider = ({ children }) => {
   };
 
   const removeFromCart = (itemId, size) => {
-    setCartItems(prevItems => 
-      prevItems.filter(item => 
+    setCartItems(prevItems =>
+      prevItems.filter(item =>
         !(item.id === itemId && item.size === size)
       )
     );
   };
 
   return (
-    <CartContext.Provider value={{ 
-      cartItems, 
-      favorites, 
-      addToCart, 
-      toggleFavorite, 
+    <CartContext.Provider value={{
+      cartItems,
+      favorites,
+      addToCart,
+      toggleFavorite,
       clearCart,
       removeFromCart
     }}>
       {children}
     </CartContext.Provider>
   );
-};
-
-export const useCart = () => useContext(CartContext); 
+}
