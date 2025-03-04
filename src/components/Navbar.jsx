@@ -246,18 +246,6 @@ export default function Navbar() {
 
           {user.loggedIn ? (
             <>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="profile-menu"
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                sx={{
-                  ...iconButtonStyle,
-                  ml: 1, // Add margin to separate from other icons
-                }}
-              >
-                <AccountCircleIcon sx={{ fontSize: "1.5rem" }} />
-              </IconButton>
               <div>
                 <IconButton
                   aria-label="account of current user"
