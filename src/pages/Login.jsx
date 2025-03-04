@@ -38,7 +38,7 @@ const Login = () => {
     setError('');
     const userData = { initials: email.charAt(0).toUpperCase(), email, name: email.split('@')[0] };
     login(userData);
-    setUser(userData);
+    // setUser(userData); // REMOVE THIS LINE
     setOpenSnackbar(true);
     setTimeout(() => navigate('/'), 2000); // Redirect to home page after 2 seconds
   };
