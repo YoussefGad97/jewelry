@@ -82,7 +82,7 @@ export default function Navbar() {
         sx={{
           px: 2,
           py: 1,
-          fontSize: "0.95rem",
+          fontSize: "1rem",
           fontWeight: isActive ? 600 : 400,
           position: "relative",
           color: isActive ? "primary.main" : "text.primary",
