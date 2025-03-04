@@ -288,14 +288,18 @@ export default function Shop() {
 
       {/* Products Grid */}
       <Box sx={{ flexGrow: 1 }}>
-        <Typography variant="h4" sx={{ // Reduced font size for heading
-          mb: {xs: 2, md: 4}, // Reduced margin on small screens
-          pt: { xs: 1, md: 2 },
-          textAlign: 'center',
-          fontWeight: 800,
-          letterSpacing: '-1px',
-          color: 'text.primary'
-        }}>
+        <Typography
+          variant="h4"
+          sx={{
+            mb: { xs: 2, md: 4 },
+            pt: { xs: 1, md: 2 },
+            textAlign: 'center',
+            fontWeight: 700, // Added font weight
+            letterSpacing: '-1px',
+            color: 'text.primary',
+            fontFamily: '"Playfair Display", serif', // Added font family
+          }}
+        >
           Full Collection
         </Typography>
 
