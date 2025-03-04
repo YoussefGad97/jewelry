@@ -25,6 +25,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useCart } from "../context/CartContext";
 import { useUser } from "../context/UserContext";
 import { useTheme } from '@mui/material/styles';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const navLinks = [
   { path: "/", name: "Home" },
@@ -244,7 +245,7 @@ export default function Navbar() {
           </IconButton>
 
           {user.loggedIn ? (
-            <div>
+            <>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="profile-menu"
@@ -252,52 +253,66 @@ export default function Navbar() {
                 onClick={handleProfileMenuOpen}
                 sx={{
                   ...iconButtonStyle,
-                  ml: 1,
+                  ml: 1, // Add margin to separate from other icons
                 }}
               >
-                <Avatar
+                <AccountCircleIcon sx={{ fontSize: "1.5rem" }} />
+              </IconButton>
+              <div>
+                <IconButton
+                  aria-label="account of current user"
+                  aria-controls="profile-menu"
+                  aria-haspopup="true"
+                  onClick={handleProfileMenuOpen}
                   sx={{
-                    width: 32,
-                    height: 32,
-                    background: "linear-gradient(45deg, #3a7bd5, #00d2ff)",
-                    fontSize: "0.9rem",
-                    fontWeight: "bold",
+                    ...iconButtonStyle,
+                    ml: 1,
                   }}
                 >
-                  {user.initials}
-                </Avatar>
-              </IconButton>
-              <Menu
-                id="profile-menu"
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleProfileMenuClose}
-                PaperProps={{
-                  sx: {
-                    mt: 1.5,
-                    minWidth: 180,
-                    borderRadius: "12px",
-                    boxShadow: "0 8px 16px rgba(0,0,0,0.1)",
-                    "& .MuiMenuItem-root": {
-                      px: 2,
-                      py: 1.5,
-                      fontSize: "0.95rem",
-                      transition: "background-color 0.2s ease",
-                      borderRadius: "8px",
-                      mx: 0.5,
-                      my: 0.5,
+                  <Avatar
+                    sx={{
+                      width: 32,
+                      height: 32,
+                      background: "linear-gradient(45deg, #3a7bd5, #00d2ff)",
+                      fontSize: "0.9rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {user.initials}
+                  </Avatar>
+                </IconButton>
+                <Menu
+                  id="profile-menu"
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleProfileMenuClose}
+                  PaperProps={{
+                    sx: {
+                      mt: 1.5,
+                      minWidth: 180,
+                      borderRadius: "12px",
+                      boxShadow: "0 8px 16px rgba(0,0,0,0.1)",
+                      "& .MuiMenuItem-root": {
+                        px: 2,
+                        py: 1.5,
+                        fontSize: "0.95rem",
+                        transition: "background-color 0.2s ease",
+                        borderRadius: "8px",
+                        mx: 0.5,
+                        my: 0.5,
+                      },
                     },
-                  },
-                }}
-                transformOrigin={{ horizontal: "right", vertical: "top" }}
-                anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
-              >
-                <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
-                <MenuItem onClick={logout} sx={{ color: "error.main" }}>
-                  Logout
-                </MenuItem>
-              </Menu>
-            </div>
+                  }}
+                  transformOrigin={{ horizontal: "right", vertical: "top" }}
+                  anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+                >
+                  <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
+                  <MenuItem onClick={logout} sx={{ color: "error.main" }}>
+                    Logout
+                  </MenuItem>
+                </Menu>
+              </div>
+            </>
           ) : (
             <Box sx={{ display: "flex", gap: 1 }}>
               <Button
