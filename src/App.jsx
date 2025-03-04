@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import HomePage from '../src/pages/home';
 import ShopPage from '../src/pages/shop';
 import CartPage from '../src/pages/cart';
-import Favorites from './pages/favorites';
+import Favorites from './pages/Favorites';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
