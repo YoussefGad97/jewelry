@@ -2,7 +2,7 @@ import { Container } from '@mui/material';
 import CarouselCard from '../components/CarouselCard';
 import ShopSection from '../components/ShopSection';
 import ScrollToTop from '../components/ScrollToTop';
-import Testimonials from '../components/Testimonials';
+import Testimonials from '../src/';
 import landing1 from '../assets/images/Landing.jpg';
 
 export default function HomePage() {
