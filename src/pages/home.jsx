@@ -4,6 +4,9 @@ import ShopSection from '../components/ShopSection';
 import ScrollToTop from '../components/ScrollToTop';
 import landing1 from '../assets/images/Landing.jpg';
 import TestimonialsSection from '../components/TestimonialsSection';
+import CallToAction from '../components/CallToAction';
+import Footer from '../components/Footer';
+
 
 export default function HomePage() {
   return (
@@ -31,7 +34,9 @@ export default function HomePage() {
         <ShopSection />
       </Container>
       <TestimonialsSection  />
+      <CallToAction /> 
       <ScrollToTop />
+      <Footer />
     </div>
   );
 }

@@ -101,6 +101,8 @@ const TestimonialsSection = () => {
         variant={isMobile ? "h5" : "h4"}
         component="h2"
         align="center"
+        fontWeight={700}
+        mb={6}
         gutterBottom
       >
         What Our Customers Are Saying
