@@ -163,17 +163,18 @@ export default function Navbar() {
           component={motion.div}
           variant="h5"
           whileHover={{ scale: 1.05 }}
+          fontSize="2.5rem"
           sx={{
             mr: 2,
             fontWeight: 700,
             letterSpacing: "-0.5px",
-            background: "linear-gradient(to right, #3a7bd5, #00d2ff)",
+            background: "linear-gradient(to right,rgb(79, 126, 255),rgb(100, 249, 226))",
             WebkitBackgroundClip: "text",
             WebkitTextFillColor: "transparent",
             textDecoration: "none",
           }}
         >
-          JewelryStore
+          Aurelia
         </Typography>
 
         {/* Desktop Navigation */}

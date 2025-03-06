@@ -1,12 +1,17 @@
 import React from "react";
-import { Box, Typography, Button, styled } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  styled,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import callToActionImg from "../assets/images/CallToAction.jpg";
-import { p } from "framer-motion/client";
-
 const CallToActionContainer = styled(Box)(({ theme }) => ({
   backgroundImage: `url(${callToActionImg})`,
   backgroundSize: "cover",
-  backgroundPosition: "50% -50%",
+  backgroundPosition: "center",
   backgroundRepeat: "no-repeat",
   backgroundAttachment: "fixed",
   height: 450,
@@ -18,25 +23,34 @@ const CallToActionContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(4),
   paddingLeft: theme.spacing(8),
   [theme.breakpoints.down("sm")]: {
-    height: 200,
+    height: 300,
     padding: theme.spacing(2),
     paddingLeft: theme.spacing(4),
+    alignItems: "center",
+    textAlign: "center",
   },
 }));
 
 const CallToAction = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   return (
     <CallToActionContainer>
       <Typography
-        variant="h4"
+        variant={isMobile ? "h3" : "h2"}
         component="h2"
         gutterBottom
         fontWeight={700}
-        fontSize={49}
       >
         Get in Touch
       </Typography>
-      <Typography variant="body1" component="p" mb={2}>
+      <Typography
+        variant="body1"
+        component="p"
+        mb={2}
+        textAlign={isMobile ? "center" : "left"}
+      >
         We'd love to hear from you!
       </Typography>
       <Button variant="contained" color="primary" href="/contact">
